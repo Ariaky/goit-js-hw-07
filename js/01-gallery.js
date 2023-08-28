@@ -26,15 +26,30 @@ const cardMarkup = galleryItems
         }
 
         const instance = basicLightbox.create(
-            `<img src="${event.target.dataset.source}">`
+            `<img src="${event.target.dataset.source}">`,
+            {
+                onShow: (instance) => window.addEventListener('keydown', closeEscape),
+                onClose: (instance) => window.removeEventListener('keydown', closeEscape),
+            }
         );
         instance.show();
 
-        window.addEventListener('keydown', (event) => {
+        function closeEscape(event) {
             if (event.code === 'Escape') {
-                instance.close();
+                instance.close(); 
             }
-        });
+        }
+
+       // window.addEventListener('keydown', (event) => {
+       //     if (event.code === 'Escape') {
+       //         instance.close();
+       //     }
+       // });
     }
 
 console.log(galleryItems);
+
+// const instance = basicLightbox.create(html, {
+//		onShow: (instance) => віндоу.додаємоСлухача(‘кідаун, закриттяЕскейп),
+//		onClose: (instance) => віндоу.знімаємоСлухача(‘кідаун', закриттяЕскейп)
+//	})
